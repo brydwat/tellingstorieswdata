@@ -1,5 +1,8 @@
-# Chapter 3
-# Bryce Watson
+### Chapter 3 ### 
+# Author: Bryce Watson
+# Date: 10/20/24
+
+### Workspace setup ###
 
 # Load packages
 library(AER)
@@ -35,3 +38,5 @@ library(usethis)
 # Done is better than perfect
 
 # Mentality tips from ch 3.5.3
+
+# Test update after first commit. No commit message for this one... Didn't work, need to 'Commit' first.
