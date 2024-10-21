@@ -8,9 +8,30 @@ output:
       bootswatch: cerulean
 ---
 
-### Hello
-words words words, more words
+### 3.5.5 Tests
+ 1. **Boundary conditions** - testing extreme/edge cases (min/ma inputs)
+ 2. **Classes** - test variable data types
+ 3. **Missing data** - check how code handles missing or null values
+ 4. **The number of observations and variables** - verify the correct # of observations and variables are being processed.
+ 5. **Duplicates** - test for duplicate data.
+ 6. **Regression results** - ensure regression outputs are not unexpected after code changes.
+
+Run at least each of these relevant tests during the simulation phase. Other tests may be needed. 
+
 
 ```{r}
-codename <- c(1:5)
+fu_name <- c(1:5)
 ```
+
+### 3.6.3 Code review
+
+ 1, Is there an informative README and how could it be improved?
+ 2. Are the file names and variable names consistent, informative, and meaningful?
+ 3. Do the comments allow you to understand why something is being done?
+ 4. Are the tests both appropriate and sufficient? Are there edge cases or corner solutions that are not considered?  5. Similarly, are there unnecessary tests that could be removed?
+ 5. Are there magic numbers that could be changed to variables and explained?
+ 6. Is there duplicated code that could be changed?
+ 7. Are there any outstanding warnings that should be addressed?
+ 8. Are there any especially large functions or pipes that could be separated into smaller ones?
+ 9. Is the structure of the project appropriate?
+ 10. Can we change any of the code to data (Irving et al. 2021, 462)?
