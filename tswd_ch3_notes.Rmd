@@ -23,15 +23,58 @@ Run at least each of these relevant tests during the simulation phase. Other tes
 fu_name <- c(1:5)
 ```
 
-### 3.6.3 Code review
+### 3.6.3 Code review ###
 
- 1, Is there an informative README and how could it be improved?
+Minimal steps to keep in mind during code review:
+
+ 1. Is there an informative README and how could it be improved?
+ 
  2. Are the file names and variable names consistent, informative, and meaningful?
+ 
  3. Do the comments allow you to understand why something is being done?
+ 
  4. Are the tests both appropriate and sufficient? Are there edge cases or corner solutions that are not considered?  5. Similarly, are there unnecessary tests that could be removed?
+ 
  5. Are there magic numbers that could be changed to variables and explained?
+ 
  6. Is there duplicated code that could be changed?
+ 
  7. Are there any outstanding warnings that should be addressed?
+
  8. Are there any especially large functions or pipes that could be separated into smaller ones?
+ 
  9. Is the structure of the project appropriate?
+ 
  10. Can we change any of the code to data (Irving et al. 2021, 462)?
+ 
+Ensure code is readable by at least one person. Preferably it is reviewed by a team. Limit code reviews to only a few hundred lines and around one hour so as to maintain efficiency.
+
+### 3.8 Excercises ###
+
+(Plan) Consider the following scenario: In a certain country there are only ever four parties that could win a seat in parliament. Whichever candidate has a plurality of votes in the area associated with a given seat wins that seat. The parliament is made up of 175 total seats. An analyst is interested in the number of votes for each party by seat. Please sketch what a dataset could look like, and then sketch a graph that you could build to show all observations.
+
+```{r}
+# Create a dataset for 175 seats
+n_seats <- 175
+
+# Define parties and set up seat numbers
+parties <- c("Republican", "Democrat", "Libertarian", "Green")
+seat_numbers <- rep(1:n_seats, each = 4)
+
+# Generate random vote counts (adjust range as needed)
+set.seed(123)
+votes <- sample(500:15000, size = n_seats * 4, replace = TRUE)
+
+# Create data frame
+election_data <- data.frame(
+  Candidate = paste("Candidate", rep(1:(n_seats *4))),
+  Party_affiliation = rep(parties, times = n_seats),
+  Vote_count = votes,
+  Seat_Number = seat_numbers
+)
+
+# View data
+head(election_data)
+
+```
+
