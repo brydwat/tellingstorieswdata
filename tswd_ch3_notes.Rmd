@@ -68,8 +68,8 @@ votes <- sample(500:15000, size = n_seats * 4, replace = TRUE)
 # Create data frame
 election_data <- data.frame(
   Candidate = paste("Candidate", rep(1:(n_seats *4))),
-  Party_affiliation = rep(parties, times = n_seats),
-  Vote_count = votes,
+  Party_Affiliation = rep(parties, times = n_seats),
+  Vote_Count = votes,
   Seat_Number = seat_numbers
 )
 
@@ -78,3 +78,30 @@ head(election_data)
 
 ```
 
+```{r}
+# Create graph showing vote results by seat.
+library(ggplot2)
+library(magrittr)
+library(tidyverse)
+
+seat_holders <- election_data %>%
+  group_by(Seat_Number) %>%
+  filter(Vote_Count == max(Vote_Count)) %>%
+  ungroup()
+
+# Assign colors to parties
+party_colors <- c("Republican" = "red", "Democrat" = "blue",
+  "Libertarian" = "yellow", "Green" = "green")
+
+# Update the party affiliation to match the winning parties
+
+seat_holders$Party_Affiliation <- factor(seat_holders$Party_Affiliation,
+                                         levels = c("Republican", "Democrat",                                            "Libertarian", "Green"))
+
+# Create bar graph
+ggplot(seat_holders, aes(x = Party_Affiliation, fill = Party_Affiliation)) +
+  geom_bar() +
+  scale_fill_manual(values = party_colors) + 
+  labs(title = "Seats won by each party", x = "Party", y = "Number of seats") +
+  theme_minimal()
+```
