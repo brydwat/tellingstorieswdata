@@ -27,25 +27,17 @@ fu_name <- c(1:5)
 
 Minimal steps to keep in mind during code review:
 
- 1. Is there an informative README and how could it be improved?
- 
- 2. Are the file names and variable names consistent, informative, and meaningful?
- 
- 3. Do the comments allow you to understand why something is being done?
- 
- 4. Are the tests both appropriate and sufficient? Are there edge cases or corner solutions that are not considered?  5. Similarly, are there unnecessary tests that could be removed?
- 
- 5. Are there magic numbers that could be changed to variables and explained?
- 
- 6. Is there duplicated code that could be changed?
- 
- 7. Are there any outstanding warnings that should be addressed?
-
- 8. Are there any especially large functions or pipes that could be separated into smaller ones?
- 
- 9. Is the structure of the project appropriate?
- 
- 10. Can we change any of the code to data (Irving et al. 2021, 462)?
+ - Is there an informative README and how could it be improved?
+ - Are the file names and variable names consistent, informative, and meaningful?
+ - Do the comments allow you to understand why something is being done?
+ - Are the tests both appropriate and sufficient? Are there edge cases or corner solutions that are not considered?  
+ - Similarly, are there unnecessary tests that could be removed?
+ - Are there magic numbers that could be changed to variables and explained?
+ - Is there duplicated code that could be changed?
+ - Are there any outstanding warnings that should be addressed?
+ - Are there any especially large functions or pipes that could be separated into smaller ones?
+ - Is the structure of the project appropriate?
+ - Can we change any of the code to data (Irving et al. 2021, 462)?
  
 Ensure code is readable by at least one person. Preferably it is reviewed by a team. Limit code reviews to only a few hundred lines and around one hour so as to maintain efficiency.
 
@@ -78,7 +70,7 @@ head(election_data)
 
 ```
 
-```{r}
+```{r, message=FALSE}
 # Create graph showing vote results by seat.
 library(ggplot2)
 library(magrittr)
