@@ -8,7 +8,7 @@ output:
       bootswatch: cerulean
 ---
 
-### Review of R for Data Science by Hadley Wickam - Ch. 1
+# Review of R for Data Science by Hadley Wickam - Ch. 1
 
 ### Begin ggplot development
 ```{r}
@@ -20,7 +20,7 @@ library(ggthemes)
 ggplot(data = penguins) # Unnecessary as separate step.
 head(penguins)
 
-# Load data
+### Load data
 ```{r, message=FALSE, warning=FALSE}
 ggplot(
   data = penguins,
@@ -61,7 +61,7 @@ ggplot(
 
 ```
 
-# Excercise 8 from R for Data Science (2e), 1.2.5
+### Excercise 8 from R for Data Science (2e), 1.2.5
 Recreate the following visualization. What aesthetic should bill_depth_mm be mapped to? And should it be mapped at the global level or at the geom level?
 
 Below are my original edits (I used chatGPT to look up the difference between "gam" and "loess" methods and went with loess since the dataset is relatively small).
