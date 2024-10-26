@@ -77,3 +77,20 @@ ggplot(
 
 
 ```
+
+# Review of Data Visualization by Kieran Healy - Ch 3.
+
+Install packages from book.
+```{r}
+install.packages(c("tidyverse", "broom", "coefplot", "cowplot",
+                 "gapminder", "GGally", "ggrepel", "ggridges", "gridExtra",
+                 "here", "interplot", "margins", "maps", "mapproj",
+                 "mapdata", "MASS", "quantreg", "rlang", "scales",
+                 "survey", "srvyr", "viridis", "viridisLite", "devtools"))
+devtools::install_github("kjhealy/socviz")
+library()
+```
+
+Book not loading, try again later. 
+
+# Telling Stories with Data - Ch. 5
