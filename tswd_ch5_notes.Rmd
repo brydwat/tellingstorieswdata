@@ -17,6 +17,27 @@ library(palmerpenguins)
 library(ggthemes)
 ```
 
-# Load data
+ggplot(data = penguins) # Unnecessary as separate step.
+head(penguins)
 
-ggplot(data =  penguins)
+# Load data
+```{r, message=FALSE}
+ggplot(
+  data = penguins,
+  mapping = aes(x = flipper_length_mm, y = body_mass_g, color = species)
+) + 
+  geom_point() +
+  geom_smooth(method = "lm")
+```
+
+It’s generally not a good idea to represent information using only colors on a plot, as people perceive colors differently due to color blindness or other color vision differences. Therefore, in addition to color, we can also map species to the shape aesthetic.
+
+```{r, message=FALSE}
+ggplot(
+  data = penguins,
+  mapping = aes(x = flipper_length_mm, y = body_mass_g)
+) + 
+  geom_point(mapping = aes(color = species, shape = species)) +
+  geom_smooth(method = "lm")
+
+```
