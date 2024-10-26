@@ -1,0 +1,22 @@
+---
+title: "Chapter 5 notes"
+author: "Bryce Watson"
+date: "10/21/2024"
+output:
+  html_document:
+    theme:
+      bootswatch: cerulean
+---
+
+### Review of R for Data Science by Hadley Wickam - Ch. 1
+
+### Begin ggplot development
+```{r}
+library(tidyverse)
+library(palmerpenguins)
+library(ggthemes)
+```
+
+# Load data
+
+ggplot(data =  penguins)
