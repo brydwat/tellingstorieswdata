@@ -21,7 +21,7 @@ ggplot(data = penguins) # Unnecessary as separate step.
 head(penguins)
 
 # Load data
-```{r, message=FALSE}
+```{r, message=FALSE, warning=FALSE}
 ggplot(
   data = penguins,
   mapping = aes(x = flipper_length_mm, y = body_mass_g, color = species)
@@ -32,12 +32,48 @@ ggplot(
 
 It’s generally not a good idea to represent information using only colors on a plot, as people perceive colors differently due to color blindness or other color vision differences. Therefore, in addition to color, we can also map species to the shape aesthetic.
 
-```{r, message=FALSE}
+```{r, message=FALSE, warning=FALSE}
 ggplot(
   data = penguins,
   mapping = aes(x = flipper_length_mm, y = body_mass_g)
 ) + 
   geom_point(mapping = aes(color = species, shape = species)) +
   geom_smooth(method = "lm")
+
+```
+
+Final plot - Added colorblind color scale, title/subtitle, lables
+
+```{r, message=FALSE, warning=FALSE}
+ggplot(
+  data = penguins,
+  mapping = aes(x = flipper_length_mm, y = body_mass_g)
+) + 
+  geom_point(mapping = aes(color = species, shape = species)) +
+  geom_smooth(method = "lm") +
+  labs(
+    title = "Body mass and flipper length",
+    subtitle = "Dimensions for Adelie, Chinstrap, and Gentoo Penguins",
+    x = "Flipper length (mm)", y = "Body mass (g)",
+    color = "Species", shape = "Species"
+  ) +
+  scale_color_colorblind()
+
+```
+
+# Excercise 8 from R for Data Science (2e), 1.2.5
+Recreate the following visualization. What aesthetic should bill_depth_mm be mapped to? And should it be mapped at the global level or at the geom level?
+
+Below are my original edits (I used chatGPT to look up the difference between "gam" and "loess" methods and went with loess since the dataset is relatively small).
+decided the bill_depth_mm should be mapped as an aes(color) modifier at the geom level. 
+
+```{r, message=FALSE, warning=FALSE}
+ggplot(
+  data = penguins,
+  mapping = aes(x = flipper_length_mm, y = body_mass_g)
+) + 
+  geom_point(mapping = aes(color = bill_depth_mm)) +
+  geom_smooth(method = "loess")
+
 
 ```
