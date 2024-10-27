@@ -111,7 +111,7 @@ library(tidyverse)
 library(troopdata)
 library(WDI)
 
-# Based on: https://juliasilge.com/blog/datasaurus-multiclass/
+### 5.2 Graphs - Based on: https://juliasilge.com/blog/datasaurus-multiclass/
 ```{r, message=FALSe}
 datasaurus_dozen |>
   filter(dataset %in% c("dino", "star", "away", "bullseye")) |>
@@ -132,4 +132,16 @@ beps <-
 head(beps)
 ```
 
+### 5.4 Maps
+```{r}
+france <- map_data(map = "france")
+
+head(france)
+
+french_cities <-
+  world.cities |>
+  filter(country.etc == "France")
+
+head(french_cities)
+```
 
