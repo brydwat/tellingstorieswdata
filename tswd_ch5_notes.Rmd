@@ -133,7 +133,7 @@ head(beps)
 ```
 
 ### 5.4 Maps
-```{r}
+```{r, results='hide'}
 france <- map_data(map = "france")
 
 head(france)
@@ -145,3 +145,24 @@ french_cities <-
 head(french_cities)
 ```
 
+Plot the gathered map data.
+
+```{r, message=FALSE, warning=FALSE}
+ggplot() +
+  geom_polygon(
+    data = france,
+    aes(x = long, y = lat, group = group),
+    fill = "white",
+    colour = "grey"
+  ) +
+  coord_map() +
+  geom_point(
+    aes(x = french_cities$long, y = french_cities$lat),
+    alpha = 0.6,
+    color = "black",
+    size = 0.1
+  ) +
+  theme_minimal() +
+  labs(x = "Longitude", y = "Latitude")
+
+```
