@@ -94,3 +94,42 @@ library()
 Book not loading, try again later. 
 
 # Telling Stories with Data - Ch. 5
+
+### Libraries used in this chapter.
+library(carData)
+library(datasauRus)
+library(ggmap)
+library(janitor)
+library(knitr)
+library(maps)
+library(mapproj)
+library(modelsummary)
+library(opendatatoronto)
+library(patchwork)
+library(tidygeocoder)
+library(tidyverse)
+library(troopdata)
+library(WDI)
+
+# Based on: https://juliasilge.com/blog/datasaurus-multiclass/
+```{r, message=FALSe}
+datasaurus_dozen |>
+  filter(dataset %in% c("dino", "star", "away", "bullseye")) |>
+  summarise(across(c(x, y), list(mean = mean, sd = sd, median = median)),
+            .by = dataset) |>
+  kable(col.names = c("Dataset", "x mean", "x median", "x sd", "y mean", "y sd", "y median"),
+        booktabs = TRUE, digits = 1)
+```
+
+### 5.2.1 Bar Charts   
+```{r, message=FALSE}
+beps <- 
+  BEPS |>
+  as_tibble() |>
+  clean_names() |>
+  select(age, vote, gender, political_knowledge)
+
+head(beps)
+```
+
+
