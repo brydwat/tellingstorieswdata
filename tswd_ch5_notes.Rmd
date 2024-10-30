@@ -158,11 +158,72 @@ ggplot() +
   coord_map() +
   geom_point(
     aes(x = french_cities$long, y = french_cities$lat),
-    alpha = 0.6,
-    color = "black",
-    size = 0.1
+    alpha = 0.3,
+    color = "royalblue",
+    size = 0.5
   ) +
-  theme_minimal() +
+  theme_dark() +
   labs(x = "Longitude", y = "Latitude")
 
 ```
+
+### Australian polling places
+
+Using ggmap we need to define a bounding box with two lattitudes and two longitudes.
+```{r}
+bbox <- c(left = 148.95, bottom = -35.5, right = 149.3, top = -35.1)
+
+```
+
+Register account: https://client.stadiamaps.com/signup/ 
+
+```{r, message=FALSE, error=FALSE}
+register_stadiamaps(key = "bc0f708a-97be-4d87-b5cf-a0155debf46b", write = TRUE)
+get_stadiamap()
+
+canberra_stamen_map <- get_stadiamap(bbox, zoom = 11, maptype = "stamen_toner_lite")
+
+ggmap(canberra_stamen_map)
+
+```
+
+
+Plot voting booth data on top of tile.
+```{r, message=FALSE, error=FALSE}
+# Download data:
+
+booths <-
+  read_csv(
+    "https://results.aec.gov.au/24310/Website/Downloads/GeneralPollingPlacesDownload-24310.csv",
+    skip = 1,
+    guess_max = 10000
+  )
+
+# Filter for booths close to Canberra
+
+booths_reduced <-
+  booths |>
+  filter(State == "ACT") |>
+  select(PollingPlaceID, DivisionNm, Latitude, Longitude) |>
+  filter(!is.na(Longitude)) |> # Remove rows without geography
+  filter(Longitude < 165) # Remove Norfolk Island
+
+# Plot booths to underlying tile.
+
+ggmap(canberra_stamen_map, extent = "normal", maprange = FALSE) +
+  geom_point(data = booths_reduced,
+             aes(x = Longitude, y = Latitude, colour = DivisionNm),
+             alpha = 0.7) +
+  scale_color_brewer(name = "2019 Division", palette = "Set1") +
+  coord_map(
+    projection = "mercator",
+    xlim = c(attr(map, "bb")$ll.lon, attr(map, "bb")$ur.lon),
+    ylim = c(attr(map, "bb")$ll.lat, attr(map, "bb")$ur.lat)
+  ) +
+  labs(x = "Longitude",
+       y = "Latitude") +
+  theme_minimal() +
+  theme(panel.grid.major = element_blank(),
+        panel.grid.minor = element_blank())
+```
+
