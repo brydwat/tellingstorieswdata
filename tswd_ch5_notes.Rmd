@@ -227,3 +227,41 @@ ggmap(canberra_stamen_map, extent = "normal", maprange = FALSE) +
         panel.grid.minor = element_blank())
 ```
 
+### 5.4.3 Geocoding
+
+Using tidygeocoder
+```{r, message=FALSE, warning=FALSE}
+place_names <-
+  tibble(
+    city = c("Sydney", "Toronto", "Accra", "Guayaquil"),
+    country = c("Australia", "Canada", "Ghana", "Ecuador")
+  )
+
+# geocode with function geo()
+place_names <-
+  geo(
+    city = place_names$city,
+    country = place_names$country,
+    method = "osm"
+  )
+
+# plot data on map
+world <- map_data(map = "world")
+
+ggplot() +
+  geom_polygon(
+    data = world,
+    aes(x = long, y = lat, group = group),
+    fill = "white",
+    colour = "grey"
+  ) +
+  geom_point(
+    aes(x = place_names$long, y = place_names$lat),
+    color = "royalblue") +
+  geom_text(
+    aes(x = place_names$long, y = place_names$lat, label = place_names$city),
+    nudge_y = -5) +
+  theme_minimal() +
+  labs(x = "Longitude",
+       y = "Latitude")
+```
