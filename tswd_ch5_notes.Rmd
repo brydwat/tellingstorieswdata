@@ -233,8 +233,8 @@ Using tidygeocoder
 ```{r, message=FALSE, warning=FALSE}
 place_names <-
   tibble(
-    city = c("Sydney", "Toronto", "Accra", "Guayaquil"),
-    country = c("Australia", "Canada", "Ghana", "Ecuador")
+    city = c("Sydney", "Toronto", "Accra", "Guayaquil", "Sana'a"),
+    country = c("Australia", "Canada", "Ghana", "Ecuador", "Yemen")
   )
 
 # geocode with function geo()
@@ -257,7 +257,7 @@ ggplot() +
   ) +
   geom_point(
     aes(x = place_names$long, y = place_names$lat),
-    color = "royalblue") +
+    color = "indianred") +
   geom_text(
     aes(x = place_names$long, y = place_names$lat, label = place_names$city),
     nudge_y = -5) +
