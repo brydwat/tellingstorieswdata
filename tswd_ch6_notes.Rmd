@@ -1,0 +1,24 @@
+---
+title: "tswd_ch6_notes"
+author: "Bryce Watson"
+date: "2024-11-29"
+output:
+  html_document:
+    theme:
+      bootswatch: cerulean
+---
+### 6.1 Introduction ###
+# Farmed Data - typically well put together, thoroughly documented, and the work of collecting, preparing, and cleaning these datasets is mostly done for us.
+
+# The state’s desire for legibility also required imposing consistency on measurement. The modern form of metrology, which is “the study of how measurements are made, and how data are compared” (Plant and Hanisch 2020), began in the French Revolution when various measurements were standardized. This later further developed as part of Napoleonic state building
+
+# the essence of the change as one where knowledge went from being “singular, local, idiosyncratic and often couched in literary form” to generalized, standardized, and numeric.
+
+# A further concern is reification, where we forget that these measures must be constructed.
+
+# John Mill wrote a history of India and said you could learn more from a book than visiting. People continue to use statistics without trying to build them or understand them. "We should always throw ourselves into the details of the data."
+
+### 6.2 Measurement ###
+# Measurement: measurement as the “process of experimentally obtaining one or more quantity values that can reasonably be attributed to a quantity”, where a quantity is a “number and reference together”. It implies “comparison of quantities, including counting of entities”, and “presupposes a description of the quantity commensurate with the intended use of a measurement result, a measurement procedure, and a calibrated measuring system"
+
+# Measurement error is the difference between the value we observe and the actual value.
