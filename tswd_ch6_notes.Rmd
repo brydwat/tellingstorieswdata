@@ -7,18 +7,75 @@ output:
     theme:
       bootswatch: cerulean
 ---
-### 6.1 Introduction ###
-# Farmed Data - typically well put together, thoroughly documented, and the work of collecting, preparing, and cleaning these datasets is mostly done for us.
 
-# The state’s desire for legibility also required imposing consistency on measurement. The modern form of metrology, which is “the study of how measurements are made, and how data are compared” (Plant and Hanisch 2020), began in the French Revolution when various measurements were standardized. This later further developed as part of Napoleonic state building
+```{r, warning=FALSE, message=FALSE}
+# Load packages
 
-# the essence of the change as one where knowledge went from being “singular, local, idiosyncratic and often couched in literary form” to generalized, standardized, and numeric.
+library(cancensus)
+library(canlang)
+library(maps)
+library(tidycensus)
+library(tidyverse)
+library(tinytable)
+```
 
-# A further concern is reification, where we forget that these measures must be constructed.
+# 6.1 Introduction
 
-# John Mill wrote a history of India and said you could learn more from a book than visiting. People continue to use statistics without trying to build them or understand them. "We should always throw ourselves into the details of the data."
+Farmed Data - typically well put together, thoroughly documented, and the work of collecting, preparing, and cleaning these datasets is mostly done for us.
 
-### 6.2 Measurement ###
-# Measurement: measurement as the “process of experimentally obtaining one or more quantity values that can reasonably be attributed to a quantity”, where a quantity is a “number and reference together”. It implies “comparison of quantities, including counting of entities”, and “presupposes a description of the quantity commensurate with the intended use of a measurement result, a measurement procedure, and a calibrated measuring system"
+The state’s desire for legibility also required imposing consistency on measurement. The modern form of metrology, which is “the study of how measurements are made, and how data are compared” (Plant and Hanisch 2020), began in the French Revolution when various measurements were standardized. This later further developed as part of Napoleonic state building
 
-# Measurement error is the difference between the value we observe and the actual value.
+The essence of the change as one where knowledge went from being “singular, local, idiosyncratic and often couched in literary form” to generalized, standardized, and numeric.
+
+A further concern is reification, where we forget that these measures must be constructed.
+
+John Mill wrote a history of India and said you could learn more from a book than visiting. People continue to use statistics without trying to build them or understand them. "We should always throw ourselves into the details of the data."
+
+# 6.2 Measurement
+
+Measurement: measurement as the “process of experimentally obtaining one or more quantity values that can reasonably be attributed to a quantity”, where a quantity is a “number and reference together”. It implies “comparison of quantities, including counting of entities”, and “presupposes a description of the quantity commensurate with the intended use of a measurement result, a measurement procedure, and a calibrated measuring system"
+
+Measurement error is the difference between the value we observe and the actual value.
+
+Right-censored data: Roentgen measurement after Chernobyl, maxed at 3.5, but real number was much higher than limit (censored above limit).
+
+Left-censored data: Thermometer's minimum is freezing, but real value is lower than limit (censored below limit).
+
+Winsorizing data: Changing an observed value to a less extreme one. For example counting all over 100 years as 100 years old as a very large value might skew significance. Truncated data is slightly different situation where we do not even record outliers.
+
+\> Benefits of winsorizing vs truncating vs removing outliers?
+
+```{r, echo=FALSE, warning=FALSE}
+newborn_weight <-
+  tibble(
+    weight = rep(
+      x = rnorm(n = 1000, mean = 3.5, sd = 0.5), 
+      times = 3),
+    measurement = rep(
+      x = c("Actual", "Censored", "Truncated"),
+      each = 1000)
+    )
+
+newborn_weight <-
+  newborn_weight |>
+  mutate(
+    weight = case_when(
+      weight <= 2.75 & measurement == "Censored" ~ 2.75,
+      weight >= 4.25 & measurement == "Truncated" ~ NA_real_,
+      TRUE ~ weight
+    )
+  )
+
+
+newborn_weight |>
+  ggplot(aes(x = weight)) +
+  geom_histogram(bins = 50) +
+  facet_wrap(vars(measurement)) +
+  theme_minimal()
+```
+
+Regardless of how well data is collected, there will be missing data... A variable must be measured, or at least thought about and considered, in order to be missing. With insufficient consideration, there is the danger of missing data that we do not even know are missing because the variables were never considered. 
+
+Non-response could be considered a variant of measurement error whereby we observe a null, even though there should be an actual value. 
+
+Non-response is a key issue, especially with non-probability samples, because there is usually good reason to consider that people who do not respond are systematically different to those who do.
