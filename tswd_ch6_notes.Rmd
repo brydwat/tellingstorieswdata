@@ -79,3 +79,43 @@ Regardless of how well data is collected, there will be missing data... A variab
 Non-response could be considered a variant of measurement error whereby we observe a null, even though there should be an actual value. 
 
 Non-response is a key issue, especially with non-probability samples, because there is usually good reason to consider that people who do not respond are systematically different to those who do.
+
+In an ideal situation data are Missing Completely At Random (MCAR) - rare if possible. More likely Missing at Random (MAR) or missing not at random (MNAR)
+
+# 6.4 Sampling essentials
+“Statistics is the science of how to collect and analyze data and draw statements and conclusions about unknown populations.” - Wu and Thompson, 2020
+
+ 1. “Target population”: The collection of all items about which we would like to speak.
+ 2. “Sampling frame”: A list of all the items from the target population that we could get data about.
+ 3. “Sample”: The items from the sampling frame that we get data about.
+ 
+Probabalistic Sampling
+ 1. “Probability sampling”: Every unit in the sampling frame has some known chance of being sampled and the specific sample is obtained randomly based on these chances. The chance of being sampled does not necessarily need to be same for each unit.
+ 2. “Non-probability sampling”: Units from the sampling frame are sampled based on convenience, quotas, judgement, or other non-random processes.
+ 
+ Four types of probability sampling
+  1. Simple random - every unit has the same chance of being included
+ 
+  2. Systematic - proceed by selecting some value, and we then sample every X unit to obtain a Y per cent sample.
+  
+  3. Stratified -  which we can divide the population into mutually exclusive, and collectively exhaustive, sub-populations called “strata” (age, county, state, class, etc).
+ 
+  4. Cluster -  Like strata, clusters are collectively exhaustive and mutually exclusive. Specifically, with cluster sampling, we do not intend to collect data from every cluster, whereas with stratified sampling we do.
+  
+  Three types of non-probability sampling
+  1. Convenience Sampling - 
+  2. Quota Sampling - 
+  3. Respondent-driven Sampling - 
+  
+  
+  Quote from LRoB
+  "This always entails some ‘sacrifice’ of fine-grained local information, and hence often encounters stiff opposition from specialists accustomed to assay every detail with a jeweler’s balance: doctors who balk at neglecting the clinical peculiarities of a case in favour of statistically evaluated therapies;"
+  Applies to
+  Doctors vs Epidemiologists.
+  
+  "The conditions of equivalence can be political as well as conceptual. Even an exercise as apparently straightforward as conducting a national census presupposes classes of equivalence. When, for example, the first US Census, mandated by the Constitution at ten-year intervals to apportion seats among the States in the House of Representatives, was conducted in 1790, slaves were counted as three-fifths of a free man."
+  
+  
+  "Coding – the assignment of an individual case to a class of equivalence – is usually treated as a mechanical task, farmed out to unskilled, badly-paid minions in statistical offices. But Desrosières reveals its complexities and importance: this is the juncture at which the critical work of abstraction that anchors statistical classes to the world must be done, over and over again."
+  
+  
