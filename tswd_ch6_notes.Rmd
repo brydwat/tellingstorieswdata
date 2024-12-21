@@ -118,4 +118,12 @@ Probabalistic Sampling
   
   "Coding – the assignment of an individual case to a class of equivalence – is usually treated as a mechanical task, farmed out to unskilled, badly-paid minions in statistical offices. But Desrosières reveals its complexities and importance: this is the juncture at which the critical work of abstraction that anchors statistical classes to the world must be done, over and over again."
   
-  
+Task II
+```{r}
+# Simulate UK Biobank data
+set.seed(234)
+
+
+
+
+```
