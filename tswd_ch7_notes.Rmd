@@ -1,0 +1,32 @@
+---
+title: "tswd_ch7_notes"
+author: "Bryce Watson"
+date: "2024-12-21"
+output:
+  html_document:
+    theme:
+      bootswatch: cerulean
+---
+
+```{r setup, include=FALSE}
+# Setup libraries
+library(babynames)
+library(gh)
+library(here)
+library(httr)
+library(janitor)
+library(jsonlite)
+library(lubridate)
+library(pdftools)
+library(purrr)
+library(rvest)
+library(spotifyr)
+library(tesseract)
+library(tidyverse)
+library(tinytable)
+library(usethis)
+library(xml2)
+
+
+```
+
