@@ -1,0 +1,102 @@
+---
+title: "tswd_ch8_notes"
+author: "Bryce Watson"
+date: "2025-01-25"
+output:
+  html_document:
+    theme:
+      bootswatch: cerulean
+---
+
+The effect of a treatment can be assumed to be causal if (Yi|t=0) =/= (Yi|t=1) and groups are reliably equal.
+
+Individual counterfactual is impossible, so must be checked between treatment and control group averages.
+
+Recall Bastiat, what is seen and what is unseen. The counterfactual will always remain unseen in the individual.
+
+Methods such as Propensity Score Matching used to match groups and minimize differences.
+
+```{r, warning=FALSE}
+
+library(haven)
+library(labelled)
+library(tidyverse)
+library(tinytable)
+
+set.seed(853)
+
+treat_control <-
+  tibble(
+    group = sample(x = c("Treatment", "Control"), size = 100, replace = TRUE),
+    binary_effect = sample(x = c(0, 1), size = 100, replace = TRUE)
+  )
+
+treat_control |>
+  summarise(
+    treat_result = sum(binary_effect) / length(binary_effect),
+    .by = group
+  )
+```
+
+# Randomization
+Ideally random selection of two groups should yield two groups that are fundamentally the same  except for the treatment given. 
+
+RCTs and A/B testing are gold standards, but not always the best methods to use. 
+
+# Simulated example: Cats or dogs.
+Simulate a population.
+Determine if people who own cats and dogs tend to prefer blue or white.
+```{r, warning=FALSE}
+num_people <- 5000
+
+population <- tibble(
+  person = 1:num_people,
+  favorite_color = sample(c("Blue","White"), size = num_people, replace = TRUE),
+  prefers_dogs = if_else(favorite_color == "Blue",
+                         rbinom(num_people, 1, 0.9),
+                         rbinom(num_people, 1, 0.1))
+)
+
+population |>
+  count(favorite_color, prefers_dogs)
+
+
+```
+
+Now construct a sampling frame.
+```{r, warning=FALSE}
+set.seed(853)
+
+frame <-
+  population |>
+  mutate(in_frame = rbinom(n = num_people, 1, prob = 0.8))|>
+  filter(in_frame == 1)
+
+frame |>
+  count(favorite_color, prefers_dogs)
+```
+
+Create treatment and control groups with favorite color only.
+```{r, warning=FALSE}
+set.seed(853)
+
+sample <-
+  frame |>
+  select(-prefers_dogs) |>
+  mutate(
+    group = 
+      sample(x = c("Treatment", "Control"), size = nrow(frame), replace = TRUE
+  ))
+```
+
+Count the groups and calculate proportions.
+```{r, warning=FALSE}
+sample |>
+  count(group, favorite_color) |>
+  mutate(prop = n / sum(n),
+         .by = group) |>
+  tt() |> 
+  style_tt(j = 1:4, align = "llrr") |> 
+  format_tt(digits = 2, num_mark_big = ",", num_fmt = "decimal") |> 
+  setNames(c("Group", "Prefers", "Number", "Proportion"))
+```
