@@ -100,3 +100,33 @@ sample |>
   format_tt(digits = 2, num_mark_big = ",", num_fmt = "decimal") |> 
   setNames(c("Group", "Prefers", "Number", "Proportion"))
 ```
+
+Analysis of Variance (ANOVA)
+ Introduced by Fisher.
+ Modern use cases are few. Will expand in ch 12.
+ 
+### Treatment and Control
+Internal validity - if the treatment and control groups are the same in all ways and remain that way, except for the treatment. 
+
+External Validity - If the group which was randomized into treatment and control is representative of the larger population, and the experiment replicates outside conditions. 
+
+But this means we need randomization twice. Firstly, into the group that was subject to the experiment (for external validity), and then secondly, between treatment and control (for internal validity).
+
+If the treatment is truly independent - estimate the Average Treatment Effect (ATE) in a binary treatment variable. 
+
+ATE = E[Y|t = 1] - E[Y|t = 0]
+That is, the difference between the treated group,  t = 1, and the control group, t = 0, when measured by the expected value of the outcome, Y. The ATE becomes the difference between two conditional expectations.
+
+Practical questions to explore when working with real experimental data.
+
+1. How are participants being selected?
+2. How are they being slected for treatment?
+  - Early success may lead to pressure to treat everyone. 
+  
+3. How is treatment being assessed?
+4. Is random allocation ethical and fair in the experiment? 
+5. Is selection bias recognized and adjusted for?
+
+We are concerned with “equipoise”, by which we refer to a situation in which there is genuine uncertainty about whether the treatment is more effective than conventional procedures. In medical settings even if there is initial equipoise it could be undermined if the treatment is found to be effective early in the study.Berry (1989) points out that there is almost never complete consensus and so one could almost always argue, inappropriately, for the existence of equipoise even in the face of a substantial weight of evidence.
+
+### Surveys
