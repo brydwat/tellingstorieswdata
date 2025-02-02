@@ -7,6 +7,8 @@ output:
     theme:
       bootswatch: cerulean
 ---
+# Experiments and Surveys
+### Causal Inference overview
 
 The effect of a treatment can be assumed to be causal if (Yi|t=0) =/= (Yi|t=1) and groups are reliably equal.
 
@@ -38,12 +40,12 @@ treat_control |>
   )
 ```
 
-# Randomization
+### Randomization
 Ideally random selection of two groups should yield two groups that are fundamentally the same  except for the treatment given. 
 
 RCTs and A/B testing are gold standards, but not always the best methods to use. 
 
-# Simulated example: Cats or dogs.
+### Simulated example: Cats or dogs.
 Simulate a population.
 Determine if people who own cats and dogs tend to prefer blue or white.
 ```{r, warning=FALSE}
@@ -129,4 +131,68 @@ Practical questions to explore when working with real experimental data.
 
 We are concerned with “equipoise”, by which we refer to a situation in which there is genuine uncertainty about whether the treatment is more effective than conventional procedures. In medical settings even if there is initial equipoise it could be undermined if the treatment is found to be effective early in the study.Berry (1989) points out that there is almost never complete consensus and so one could almost always argue, inappropriately, for the existence of equipoise even in the face of a substantial weight of evidence.
 
-### Surveys
+# Surveys
+
+When doing surveys, it is critical to ask the right person. For instance, Lichand and Wolf (2022) consider child labor. The extent of child labor is typically based on surveys of parents. When children were surveyed a considerable under-reporting by parents was found.
+
+
+# RCT Examples
+
+### Oregon Health Insurance experiment
+
+10,000 participants assigned by random lottery.
+
+The decision to buy health insurance is usually confounded, so random allocation was important.
+
+Like earlier studies such as Brook et al. (1984), Finkelstein et al. (2012) found that the treatment group used more health care including both primary and preventive care as well as hospitalizations but had lower out-of-pocket medical expenditures. More generally, the treatment group reported better physical and mental health.
+
+# A/B Testing
+
+More experiments completed in the last decade than in all previous decades due to extensive use of A/B testing.
+ - is there any broader epistemic gain of this?
+ 
+Many large tech companies have extensive infrastructure for experimentation.
+
+Private sector has different ethical constraints than academia. End is to drive more income/profit. Potentially not an issue with grocery firms, but could be an issue with gambling firms.
+
+A/B testing refers to experiments primarily implemented through technology stack about something primarily online, such as UI interaction, ad placement, change to a website, etc. 
+
+Statistical methods may be slightly different due to volume of A/B tests vs RCT experiments which usually take months for a single experiment - Bosch and Revilla 2022.
+
+
+Three concerns for A/B testing
+ 1. Delivery decisions - different platforms my have different users, or bias the data in subtle ways.
+ 
+ 2. Instrumentation - A/B testing is usually not done with surveys, but with sensors. Behavior in relation to these sensors (i.e. clearing cookies) is important to understand.
+ 
+ 3. What is being randomized over? In RCTs it is by subject. In A/B testing it can be unclear.
+ 
+ 
+Code for Quiz Question 11
+```{r, warning=FALSE}
+### Simulated Dataset ###
+
+netflix_data <-
+  tibble(
+    person = c("Ian", "Ian", "Roger", "Roger",
+      "Roger", "Patricia", "Patricia", "Helen"
+    ),
+    tv_show = c(
+      "Broadchurch", "Duty-Shame", "Broadchurch", "Duty-Shame",
+      "Shetland", "Broadchurch", "Shetland", "Duty-Shame"
+    ),
+    hours = c(6.8, 8.0, 0.8, 9.2, 3.2, 4.0, 0.2, 10.2)
+  )
+
+### My Code ###
+#Randomly assign people into one of two groups.
+set.seed(345)
+group <- c("A","B")
+
+randomized_data <- mutate(
+  netflix_data, 
+  group = sample(group, nrow(netflix_data), replace = TRUE)
+)
+
+
+```
