@@ -1,0 +1,15 @@
+---
+title: "tswd_ch9_notes"
+author: "Bryce Watson"
+date: "2025-02-23"
+output: html_document
+---
+
+Least Squares function had early use in astronomy. Astronomers may have become comfortable combining their observations because they were aware the conditions of their data gathering were similar - Has this impulse driven a slower adoption of modern reproducibility?
+
+A model is not, and cannot be, a true representation of reality.A model helps us explore and undertand our data. There is not one best model. 
+
+We seek to explore the limits of our models, push them, and ultimately destroy them. 
+
+Regardless of the approach we use, the important thing to remember that we are just doing something akin to fancy averaging, and our results always reflect the biases and idiosyncrasies of the dataset.
+
