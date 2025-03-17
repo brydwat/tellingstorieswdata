@@ -34,14 +34,142 @@ Hypotheses do not appear, but are produced through incentives, tinkering, guessi
 
 # Simple Linear Regression
 
+y = B0 + B1X
+
+Will not know the true mean or SD of data.Use data to estimate mean and SD. 
+
+To determine a line "as close as possible", determine how far off observations are from the estimate.
+
+ei = Yi - Yhati
+
+Residual Sum of Squares
+
+RSS = e^2v1 + e^2v2 + e^2vn
+
+Underpinning the use of simple linear regression is a belief that there is some "true" relationship between X and Y.
+
+lm() - simple linear regression in base R.
+
 ```{r, warning=FALSE}
-# simulate data
+#simpulate data
 
 set.seed(853)
 
-normal_example <-
-  tibble(draws = rnorm(n = 20, mean = 0, sd =1))
+num_observations <- 200
+expected_relationship <- 8.4
+fast_time <- 15
+good_time <- 30
 
-normal_example |> pull(draws)
+sim_run_data <-
+  tibble(
+    five_km_time =
+      runif(n = num_observations, min = fast_time, max = good_time),
+    noise = rnorm(n = num_observations, mean = 0, sd = 20),
+    marathon_time = five_km_time * expected_relationship + noise
+  ) |>
+  mutate(
+    five_km_time = round(x = five_km_time, digits = 1),
+    marathon_time = round(x = marathon_time, digits = 1)
+  ) |>
+  select(-noise)
 ```
 
+3 Stepwise plots.
+
+```{r, warning=FALSE}
+#plot
+
+base_plot <- 
+  sim_run_data |>
+  ggplot(aes(x = five_km_time, y = marathon_time)) +
+  geom_point(alpha = 0.5) +
+  labs(
+    x = "Five-kilometer time (minutes)",
+    y = "Marathon time (minutes)"
+  ) +
+  theme_classic()
+
+# Panel (a)
+base_plot
+
+# Panel (b)
+base_plot +
+  geom_smooth(
+    method = "lm",
+    se = FALSE,
+    color = "black",
+    linetype = "dashed",
+    formula = "y ~ x"
+  )
+
+# Panel (c)
+base_plot +
+  geom_smooth(
+    method = "lm",
+    se = TRUE,
+    color = "black",
+    linetype = "dashed",
+    formula = "y ~ x"
+  )
+
+```
+
+Simple Lineart Regression in base R.
+
+```{r, warning=FALSE}
+# Check the class and number of observations are as expected
+stopifnot(
+  class(sim_run_data$marathon_time) == "numeric",
+  class(sim_run_data$five_km_time) == "numeric",
+  nrow(sim_run_data) == 200
+)
+
+sim_run_data_first_model <-
+  lm(
+    marathon_time ~ five_km_time,
+    data = sim_run_data
+  )
+
+stopifnot(between(
+  sim_run_data_first_model$coefficients[2],
+  6,
+  10
+))
+
+#quickly summarize regression result.
+summary(sim_run_data_first_model)
+
+# Formatted summary.
+
+modelsummary(
+  list(
+    "Five km only" = sim_run_data_first_model,
+    "Five km only, centered" = sim_run_data_centered_model
+  ),
+  fmt = 2
+)
+```
+
+```{r, warning=FALSE}
+sim_run_data <-
+  sim_run_data |>
+  mutate(centered_time = five_km_time - mean(sim_run_data$five_km_time))
+
+sim_run_data_centered_model <-
+  lm(
+    marathon_time ~ centered_time,
+    data = sim_run_data
+  )
+```
+
+"Following Gelman, Hill, and Vehtari (2020, 84) we recommend considering the coefficients as comparisons, rather than effects. And to use language that makes it clear these are comparisons, on average, based on one dataset. "
+
+To speak about the "true" relationship, we need to try to estimate how much of our understanding depends on the sampe that we have to analyze. Using standard error, create a confidence interval. 
+
+CIs often misunderstood to represent a statement of probability about a given realization of the coefficients. However, CIs are a statistic whose properties can only be understood "in expectation" (repeating an experiment many times).
+
+A 95% CI is a range such that there is approximately a 95% chance the range contains the true population parameter. 
+
+Using the standard error and Bhat1, get the test statistic or t-statistic.
+
+P-values can be easily abused so will mostly be avoided in the book. 
